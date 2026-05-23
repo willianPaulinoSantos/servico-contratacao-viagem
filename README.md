@@ -65,30 +65,6 @@ Para parar: `docker compose down`.
 
 O deploy em produção usa **Docker** no [Render](https://render.com), com deploy automático a cada merge na branch `main` do GitHub.
 
-### Pré-requisitos
-
-1. Conta no [Render](https://render.com) (login com GitHub)
-2. Repositório conectado ao Render
-3. `Dockerfile` na raiz do repositório (ou ajustar **Root Directory** no painel)
-
-### Criar o Web Service
-
-1. **Dashboard** → **New** → **Web Service**
-2. Selecione o repositório `servico-contratacao-viagem`
-3. Configure:
-
-| Campo | Valor |
-|-------|--------|
-| **Environment** | Docker |
-| **Branch** | `main` |
-| **Root Directory** | *(vazio, se `Dockerfile` e `pom.xml` estão na raiz do repo)* |
-| **Dockerfile Path** | `Dockerfile` |
-| **Auto-Deploy** | Yes |
-
-O Render ignora *Build Command* e *Start Command* manuais — o `Dockerfile` define build e execução.
-
-4. Clique em **Create Web Service** e aguarde o primeiro deploy.
-
 ### URL de produção
 
 ```text
@@ -100,12 +76,6 @@ Teste:
 ```bash
 curl https://servico-contratacao-viagem.onrender.com/pacotes
 ```
-
-### Domínio customizado (opcional)
-
-1. No serviço: **Settings** → **Custom Domains**
-2. Adicione o domínio (ex.: `api.seudominio.com`)
-3. Configure o **CNAME** no provedor de DNS conforme as instruções do Render
 
 ### Deploy contínuo
 
