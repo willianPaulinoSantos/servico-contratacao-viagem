@@ -1,28 +1,150 @@
 # Serviço de Contratação de Viagem
 
-API Spring Boot para consulta de pacotes turísticos.
+API Spring Boot para consulta de pacotes turísticos. Os dados retornados por `/pacotes` são gerados dinamicamente (mock) via [JavaFaker](https://github.com/DiUS/java-faker).
+
+**Produção:** https://servico-contratacao-viagem.onrender.com  
+**API:** `GET https://servico-contratacao-viagem.onrender.com/pacotes`
+
+**Repositório:** https://github.com/willianPaulinoSantos/servico-contratacao-viagem
 
 ## Requisitos
 
 - Java 17
 - Maven (ou `./mvnw`)
+- [Docker](https://www.docker.com/) (opcional, para container local ou deploy)
 
-## Executar
+## Executar localmente (sem Docker)
 
 ```bash
 ./mvnw spring-boot:run
 ```
 
-Endpoint: `GET http://localhost:8080/pacotes`
+**Endpoint:** `GET http://localhost:8080/pacotes`
+
+A aplicação escuta na porta definida pela variável `PORT` (padrão `8080`):
+
+```properties
+server.port=${PORT:8080}
+```
+
+## Docker
+
+### Dockerfile
+
+O build usa imagem multi-stage (Maven 17 + JRE Alpine):
+
+| Item | Valor |
+|------|--------|
+| **Dockerfile path** | `Dockerfile` (raiz do projeto) |
+| **Porta exposta** | `8080` |
+| **Artefato** | `demo-0.0.1-SNAPSHOT.jar` |
+
+### Build da imagem
+
+```bash
+docker build -t servico-contratacao-viagem:latest .
+```
+
+### Executar o container
+
+```bash
+docker run --rm -p 8080:8080 servico-contratacao-viagem:latest
+```
+
+### Docker Compose
+
+```bash
+docker compose up --build
+```
+
+A API fica disponível em `http://localhost:8080/pacotes`.
+
+Para parar: `docker compose down`.
+
+## Deploy em produção (Render)
+
+O deploy em produção usa **Docker** no [Render](https://render.com), com deploy automático a cada merge na branch `main` do GitHub.
+
+### Pré-requisitos
+
+1. Conta no [Render](https://render.com) (login com GitHub)
+2. Repositório conectado ao Render
+3. `Dockerfile` na raiz do repositório (ou ajustar **Root Directory** no painel)
+
+### Criar o Web Service
+
+1. **Dashboard** → **New** → **Web Service**
+2. Selecione o repositório `servico-contratacao-viagem`
+3. Configure:
+
+| Campo | Valor |
+|-------|--------|
+| **Environment** | Docker |
+| **Branch** | `main` |
+| **Root Directory** | *(vazio, se `Dockerfile` e `pom.xml` estão na raiz do repo)* |
+| **Dockerfile Path** | `Dockerfile` |
+| **Auto-Deploy** | Yes |
+
+O Render ignora *Build Command* e *Start Command* manuais — o `Dockerfile` define build e execução.
+
+4. Clique em **Create Web Service** e aguarde o primeiro deploy.
+
+### URL de produção
+
+```text
+https://servico-contratacao-viagem.onrender.com
+```
+
+Teste:
+
+```bash
+curl https://servico-contratacao-viagem.onrender.com/pacotes
+```
+
+### Domínio customizado (opcional)
+
+1. No serviço: **Settings** → **Custom Domains**
+2. Adicione o domínio (ex.: `api.seudominio.com`)
+3. Configure o **CNAME** no provedor de DNS conforme as instruções do Render
+
+### Deploy contínuo
+
+Com **Auto-Deploy** ativo:
+
+```text
+feature branch → Pull Request → merge em main → Render faz novo build e deploy
+```
+
+A branch `main` no GitHub está protegida: alterações só entram via PR (veja [CONTRIBUTING.md](CONTRIBUTING.md)).
+
+### Plano gratuito Render
+
+No plano free, o serviço pode **hibernar** após inatividade. A primeira requisição após idle pode demorar alguns segundos (cold start).
+
+## Estrutura do projeto
+
+```text
+src/main/java/br/com/pecepoli/demo/
+├── controller/     # REST (GET /pacotes)
+├── service/        # regras de aplicação
+├── repository/     # DummyPacoteRepository (dados mock)
+└── domain/         # entidades do domínio
+```
 
 ## Fluxo de trabalho em grupo
 
 A branch `main` é protegida: **não envie commits diretamente para ela**.
 
-1. Atualize sua base: `git pull origin main`
-2. Crie uma branch: `git checkout -b feature/nome-da-tarefa`
+1. `git pull origin main`
+2. `git checkout -b feature/nome-da-tarefa`
 3. Desenvolva, commit e push: `git push -u origin feature/nome-da-tarefa`
-4. Abra um **Pull Request** no GitHub para `main`
-5. Após o merge do PR, os demais atualizam: `git pull origin main`
+4. Abra um **Pull Request** para `main`
+5. Após o merge, atualize localmente: `git pull origin main`
 
 Detalhes em [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Testes
+
+```bash
+./mvnw test
+```
