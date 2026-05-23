@@ -7,6 +7,16 @@ API Spring Boot para consulta de pacotes turísticos. Os dados retornados por `/
 
 **Repositório:** https://github.com/willianPaulinoSantos/servico-contratacao-viagem
 
+## Download do código (ZIP)
+
+| Botão | Conteúdo | Download |
+|-------|----------|----------|
+| **A** | Pasta [`src/`](src/) (código-fonte e recursos) | [![Download src](https://img.shields.io/badge/Botão_A-Download__src-2ea44f?style=for-the-badge&logo=github)](https://download-directory.github.io/?url=https://github.com/willianPaulinoSantos/servico-contratacao-viagem/tree/main/src) |
+| **B** | Repositório completo (raiz do projeto) | [![Download repositório](https://img.shields.io/badge/Botão_B-Download__repositório-2ea44f?style=for-the-badge&logo=github)](https://github.com/willianPaulinoSantos/servico-contratacao-viagem/archive/refs/heads/main.zip) |
+
+- **Botão B** usa o arquivo ZIP oficial do GitHub (`main.zip`). Ao descompactar, a pasta será `servico-contratacao-viagem-main/`.
+- **Botão A** gera ZIP apenas da pasta `src/` via [download-directory.github.io](https://download-directory.github.io/) (o GitHub não oferece ZIP nativo de subpastas).
+
 ## Requisitos
 
 - Java 17
