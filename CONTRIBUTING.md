@@ -59,10 +59,16 @@ git branch -d feature/minha-tarefa
 
 ## Proteção da branch `main`
 
-A configuração no GitHub exige Pull Request para alterar `main`. Se alguém tentar `git push origin main`, o GitHub rejeita.
+Repositório **público**: https://github.com/willianPaulinoSantos/servico-contratacao-viagem
 
-Para aplicar/reaplicar a proteção (após criar o repo remoto):
+A proteção no GitHub exige **Pull Request** para alterar `main`. `git push origin main` é **rejeitado** pelo servidor.
+
+Para reaplicar a proteção:
 
 ```bash
 ./scripts/setup-github-protection.sh
 ```
+
+### Convidar os 4 integrantes
+
+**Settings → Collaborators → Add people** no GitHub.

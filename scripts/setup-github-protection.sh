@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Configura regras no GitHub para bloquear push direto em main e exigir PR.
+# Exige Pull Request para alterar main (bloqueia push direto).
 # Uso: ./scripts/setup-github-protection.sh
-# Requer: gh autenticado (gh auth login)
+# Requer: gh autenticado; repositório público (ou GitHub Pro se privado).
 
 set -euo pipefail
 
@@ -24,55 +24,33 @@ if [[ -z "$REMOTE_URL" ]]; then
   exit 1
 fi
 
-# Extrai owner/repo de git@github.com:owner/repo.git ou https://github.com/owner/repo.git
 REPO_SLUG="$(echo "$REMOTE_URL" | sed -E 's#.*github\.com[:/]([^/]+/[^/.]+)(\.git)?#\1#')"
 OWNER="${REPO_SLUG%%/*}"
 REPO="${REPO_SLUG##*/}"
 
 echo "Configurando proteção em ${OWNER}/${REPO} (branch main)..."
 
-# Ruleset: exige PR para merge e bloqueia atualizações diretas (push) em main
-gh api "repos/${OWNER}/${REPO}/rulesets" --method POST --input - <<EOF
+VISIBILITY="$(gh repo view "${OWNER}/${REPO}" --json visibility -q .visibility)"
+if [[ "$VISIBILITY" == "PRIVATE" ]]; then
+  echo "Erro: repositório privado no plano Free não suporta proteção de branch."
+  echo "Torne público: gh repo edit ${OWNER}/${REPO} --visibility public --accept-visibility-change-consequences"
+  exit 1
+fi
+
+gh api --method PUT "repos/${OWNER}/${REPO}/branches/main/protection" --input - <<EOF
 {
-  "name": "Proteger main - apenas via PR",
-  "target": "branch",
-  "enforcement": "active",
-  "conditions": {
-    "ref_name": {
-      "include": ["refs/heads/main"],
-      "exclude": []
-    }
+  "required_status_checks": null,
+  "enforce_admins": true,
+  "required_pull_request_reviews": {
+    "dismiss_stale_reviews": false,
+    "require_code_owner_reviews": false,
+    "required_approving_review_count": 0
   },
-  "rules": [
-    {
-      "type": "pull_request",
-      "parameters": {
-        "required_approving_review_count": 0,
-        "dismiss_stale_reviews_on_push": false,
-        "require_code_owner_review": false,
-        "require_last_push_approval": false,
-        "required_review_thread_resolution": false
-      }
-    },
-    {
-      "type": "update",
-      "parameters": {
-        "update_allows_merge_commits": true,
-        "update_allows_rebase_merges": true,
-        "update_allows_squash_merges": true
-      }
-    },
-    {
-      "type": "deletion",
-      "parameters": {}
-    },
-    {
-      "type": "non_fast_forward",
-      "parameters": {}
-    }
-  ]
+  "restrictions": null,
+  "allow_force_pushes": false,
+  "allow_deletions": false
 }
 EOF
 
-echo "Concluído. Teste: git push origin main deve ser rejeitado."
-echo "Fluxo correto: feature branch -> PR -> merge em main."
+echo "Proteção aplicada: alterações em main apenas via Pull Request."
+echo "Teste esperado: git push origin main -> rejeitado pelo GitHub."
