@@ -20,4 +20,13 @@ public class TransladoAereo extends ItemPacote {
     public void setNumeroVoo(String numeroVoo) {
         this.numeroVoo = numeroVoo;
     }
+
+    @Override
+    public String toString() {
+        return "TransladoAereo{" +
+                "preco=" + getPreco() + '\'' +
+                "companiaAerea='" + companiaAerea + '\'' +
+                ", numeroVoo='" + numeroVoo + '\'' +
+                '}';
+    }
 }

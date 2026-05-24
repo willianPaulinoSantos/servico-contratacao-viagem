@@ -11,11 +11,11 @@ public class Contratacao {
     private final double valor;
     private Instant dataContratacao;
 
-    Contratacao(Pacote pacote, Cliente cliente, double valor, Instant dataContratacao) {
-        this.pacote = pacote;
+    Contratacao(Cliente cliente, Pacote pacote) {
         this.cliente = cliente;
+        this.pacote = pacote;
         this.valor = getPrecoFromPacote(pacote);
-        this.dataContratacao = dataContratacao;
+        this.dataContratacao = Instant.now();
     }
 
     private double getPrecoFromPacote(Pacote pacote) {

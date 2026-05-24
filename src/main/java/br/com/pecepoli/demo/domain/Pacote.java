@@ -10,18 +10,13 @@ public class Pacote {
     private Localidade localidade;
     private final List<ItemPacote> itens = new ArrayList<>();
 
-    public double getPreco() {
-        return itens.stream().mapToDouble(ItemPacote::getPreco).sum();
+
+    public Localidade getLocalidade() {
+        return localidade;
     }
 
-    public List<ItemPacote> getItens() {
-        return Collections.unmodifiableList(itens);
-    }
-
-    public void adicionarItem(ItemPacote item) {
-        if (item != null) {
-            this.itens.add(item);
-        }
+    public void setLocalidade(Localidade localidade) {
+        this.localidade = localidade;
     }
 
     public String getDescricao() {
@@ -32,11 +27,30 @@ public class Pacote {
         this.descricao = descricao;
     }
 
-    public Localidade getLocalidade() {
-        return localidade;
+    public List<ItemPacote> getItens() {
+        return Collections.unmodifiableList(itens);
     }
 
-    public void setLocalidade(Localidade localidade) {
-        this.localidade = localidade;
+    public void addItem(ItemPacote item) {
+        if (item != null) {
+            this.itens.add(item);
+        }
+    }
+    
+    public void removeItem(ItemPacote item) {
+        this.itens.remove(item);
+    }
+
+    public double getPreco() {
+        return itens.stream().mapToDouble(ItemPacote::getPreco).sum();
+    }
+
+    @Override
+    public String toString() {
+        return "Pacote{" +
+                "localidade=" + localidade +
+                ", descricao='" + descricao + '\'' +
+                ", itens=" + itens +
+                '}';
     }
 }

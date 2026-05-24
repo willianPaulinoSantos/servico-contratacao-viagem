@@ -15,4 +15,11 @@ public class Localidade {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    @Override
+    public String toString() {
+        return "Localidade{" +
+                "descricao='" + descricao + '\'' +
+                '}';
+    }
 }

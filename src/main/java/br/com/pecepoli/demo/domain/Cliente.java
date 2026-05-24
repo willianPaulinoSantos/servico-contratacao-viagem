@@ -11,29 +11,26 @@ public class Cliente {
     private LocalDate dataNascimento;
     private final List<Contratacao> contratacoes = new ArrayList<>();
 
+    private Cliente(String nome, LocalDate dataNascimento) {
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+    }
+
     public List<Contratacao> getContratacoes() {
         return Collections.unmodifiableList(contratacoes);
     }
 
-    public void registrarContratacao(Contratacao contratacao) {
-        if (contratacao != null) {
-            this.contratacoes.add(contratacao);
+    public void contratar(Pacote pacote) {
+        if (pacote != null) {
+            this.contratacoes.add(new Contratacao(this, pacote));
         }
     }
 
-    public String getNome() {
-        return nome;
+    public Cliente cadastrar(String nome, LocalDate dataNascimento) {
+        return new Cliente(nome, dataNascimento);
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
+    public Cliente buscarCadastro(String nome, LocalDate dataNascimento) {
+        return new Cliente(nome, dataNascimento);
     }
 }

@@ -20,4 +20,14 @@ public class LocacaoVeiculo extends ItemPacote {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
+
+    @Override
+    public String toString() {
+        return "LocacaoVeiculo{" +
+                "preco=" + getPreco() + '\'' +
+
+                "marca='" + marca + '\'' +
+                ", modelo='" + modelo + '\'' +
+                '}';
+    }
 }

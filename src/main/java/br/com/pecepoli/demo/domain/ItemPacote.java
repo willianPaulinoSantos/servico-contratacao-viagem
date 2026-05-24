@@ -5,7 +5,7 @@ public abstract class ItemPacote {
     protected double preco;
 
     public double getPreco() {
-        return preco;
+        return this.preco;
     }
 
     public void setPreco(double preco) {
