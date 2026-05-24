@@ -1,11 +1,11 @@
-package br.com.pecepoli.demo.domain;
+package br.com.pecepoli.demo.entity;
 
 public abstract class ItemPacote {
 
     protected double preco;
 
     public double getPreco() {
-        return preco;
+        return this.preco;
     }
 
     public void setPreco(double preco) {

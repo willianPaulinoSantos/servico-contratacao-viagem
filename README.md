@@ -2,17 +2,19 @@
 
 API Spring Boot para consulta de pacotes turísticos. Os dados retornados por `/pacotes` são gerados dinamicamente (mock) via [JavaFaker](https://github.com/DiUS/java-faker).
 
-**Produção:** https://servico-contratacao-viagem.onrender.com  
+**Produção:** [https://servico-contratacao-viagem.onrender.com](https://servico-contratacao-viagem.onrender.com)  
 **API:** `GET https://servico-contratacao-viagem.onrender.com/pacotes`
 
-**Repositório:** https://github.com/willianPaulinoSantos/servico-contratacao-viagem
+**Repositório:** [https://github.com/willianPaulinoSantos/servico-contratacao-viagem](https://github.com/willianPaulinoSantos/servico-contratacao-viagem)
 
 ## Download do código (ZIP)
 
-| Botão | Conteúdo | Download |
-|-------|----------|----------|
-| **A** | Pasta [`src/`](src/) (código-fonte e recursos) | [![Download src](https://img.shields.io/badge/Botão_A-Download__src-2ea44f?style=for-the-badge&logo=github)](https://download-directory.github.io/?url=https://github.com/willianPaulinoSantos/servico-contratacao-viagem/tree/main/src) |
-| **B** | Repositório completo (raiz do projeto) | [![Download repositório](https://img.shields.io/badge/Botão_B-Download__repositório-2ea44f?style=for-the-badge&logo=github)](https://github.com/willianPaulinoSantos/servico-contratacao-viagem/archive/refs/heads/main.zip) |
+
+| Botão | Conteúdo                                       | Download                                                                                                                                   |
+| ----- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **A** | Pasta `[src/](src/)` (código-fonte e recursos) | [Download src](https://download-directory.github.io/?url=https://github.com/willianPaulinoSantos/servico-contratacao-viagem/tree/main/src) |
+| **B** | Repositório completo (raiz do projeto)         | [Download repositório](https://github.com/willianPaulinoSantos/servico-contratacao-viagem/archive/refs/heads/main.zip)                     |
+
 
 - **Botão B** usa o arquivo ZIP oficial do GitHub (`main.zip`). Ao descompactar, a pasta será `servico-contratacao-viagem-main/`.
 - **Botão A** gera ZIP apenas da pasta `src/` via [download-directory.github.io](https://download-directory.github.io/) (o GitHub não oferece ZIP nativo de subpastas).
@@ -43,11 +45,13 @@ server.port=${PORT:8080}
 
 O build usa imagem multi-stage (Maven 17 + JRE Alpine):
 
-| Item | Valor |
-|------|--------|
+
+| Item                | Valor                          |
+| ------------------- | ------------------------------ |
 | **Dockerfile path** | `Dockerfile` (raiz do projeto) |
-| **Porta exposta** | `8080` |
-| **Artefato** | `demo-0.0.1-SNAPSHOT.jar` |
+| **Porta exposta**   | `8080`                         |
+| **Artefato**        | `demo-0.0.1-SNAPSHOT.jar`      |
+
 
 ### Build da imagem
 
@@ -108,7 +112,7 @@ src/main/java/br/com/pecepoli/demo/
 ├── controller/     # REST (GET /pacotes)
 ├── service/        # regras de aplicação
 ├── repository/     # DummyPacoteRepository (dados mock)
-└── domain/         # entidades do domínio
+└── entity/         # entidades do domínio
 ```
 
 ## Fluxo de trabalho em grupo
@@ -128,3 +132,4 @@ Detalhes em [CONTRIBUTING.md](CONTRIBUTING.md).
 ```bash
 ./mvnw test
 ```
+

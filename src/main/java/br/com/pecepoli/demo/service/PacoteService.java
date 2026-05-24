@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import br.com.pecepoli.demo.domain.Pacote;
+import br.com.pecepoli.demo.entity.Pacote;
 import br.com.pecepoli.demo.repository.PacoteRepository;
 
 @Service

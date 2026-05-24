@@ -1,4 +1,4 @@
-package br.com.pecepoli.demo.domain;
+package br.com.pecepoli.demo.entity;
 
 public class Hospedagem extends ItemPacote {
 
@@ -19,5 +19,14 @@ public class Hospedagem extends ItemPacote {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    @Override
+    public String toString() {
+        return "Hospedagem{" +
+                "preco=" + getPreco() + '\'' +
+                "nomeHotel='" + nomeHotel + '\'' +
+                ", endereco='" + endereco + '\'' +
+                '}';
     }
 }

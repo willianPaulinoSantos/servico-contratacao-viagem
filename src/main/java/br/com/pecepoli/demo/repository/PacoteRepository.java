@@ -2,7 +2,7 @@ package br.com.pecepoli.demo.repository;
 
 import java.util.List;
 
-import br.com.pecepoli.demo.domain.Pacote;
+import br.com.pecepoli.demo.entity.Pacote;
 
 public interface PacoteRepository {
 

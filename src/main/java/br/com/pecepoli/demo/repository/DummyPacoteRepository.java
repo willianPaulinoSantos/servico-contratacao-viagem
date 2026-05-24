@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 
 import com.github.javafaker.Faker;
 
-import br.com.pecepoli.demo.domain.Hospedagem;
-import br.com.pecepoli.demo.domain.ItemPacote;
-import br.com.pecepoli.demo.domain.Localidade;
-import br.com.pecepoli.demo.domain.LocacaoVeiculo;
-import br.com.pecepoli.demo.domain.Pacote;
-import br.com.pecepoli.demo.domain.TransladoAereo;
+import br.com.pecepoli.demo.entity.Hospedagem;
+import br.com.pecepoli.demo.entity.ItemPacote;
+import br.com.pecepoli.demo.entity.LocacaoVeiculo;
+import br.com.pecepoli.demo.entity.Localidade;
+import br.com.pecepoli.demo.entity.Pacote;
+import br.com.pecepoli.demo.entity.TransladoAereo;
 
 @Component
 public class DummyPacoteRepository implements PacoteRepository {
@@ -37,9 +37,9 @@ public class DummyPacoteRepository implements PacoteRepository {
         pacote.setDescricao(faker.lorem().paragraph());
         pacote.setLocalidade(criarLocalidadeDummy());
 
-        pacote.adicionarItem(criarHotelDummy());
-        pacote.adicionarItem(criarTransladoAereo());
-        pacote.adicionarItem(criarLocacaoVeiculo());
+        pacote.addItem(criarHotelDummy());
+        pacote.addItem(criarTransladoAereo());
+        pacote.addItem(criarLocacaoVeiculo());
 
         return pacote;
     }
