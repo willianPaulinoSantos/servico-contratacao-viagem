@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.pecepoli.demo.domain.Pacote;
+import br.com.pecepoli.demo.entity.Pacote;
 import br.com.pecepoli.demo.service.PacoteService;
 
 @RestController

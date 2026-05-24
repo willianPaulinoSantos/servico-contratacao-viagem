@@ -1,4 +1,4 @@
-package br.com.pecepoli.demo.domain;
+package br.com.pecepoli.demo.entity;
 
 import java.util.ArrayList;
 import java.util.Collections;

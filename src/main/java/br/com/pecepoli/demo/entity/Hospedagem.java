@@ -1,4 +1,4 @@
-package br.com.pecepoli.demo.domain;
+package br.com.pecepoli.demo.entity;
 
 public class Hospedagem extends ItemPacote {
 
