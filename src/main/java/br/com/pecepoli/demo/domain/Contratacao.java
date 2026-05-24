@@ -1,44 +1,44 @@
 package br.com.pecepoli.demo.domain;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Contratacao {
 
-    private double valor;
+    private final Pacote pacote;
+    private final Cliente cliente;
+    private final double valor;
     private Instant dataContratacao;
-    private final List<Pacote> pacotes = new ArrayList<>();
 
-    public Contratacao(double valor, Instant dataContratacao) {
-        this.valor = valor;
+    Contratacao(Pacote pacote, Cliente cliente, double valor, Instant dataContratacao) {
+        this.pacote = pacote;
+        this.cliente = cliente;
+        this.valor = getPrecoFromPacote(pacote);
         this.dataContratacao = dataContratacao;
     }
 
-    public List<Pacote> getPacotes() {
-        return Collections.unmodifiableList(pacotes);
+    private double getPrecoFromPacote(Pacote pacote) {
+        return pacote.getPreco();
     }
 
-    public void adicionarPacote(Pacote pacote) {
-        if (pacote != null) {
-            this.pacotes.add(pacote);
-        }
+    public List<ItemPacote> getItensDoPacote() {
+        return Collections.unmodifiableList(pacote.getItens());
+    }
+
+    public Pacote getPacote(){
+        return pacote;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
     }
 
     public double getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
     public Instant getDataContratacao() {
         return dataContratacao;
-    }
-
-    public void setDataContratacao(Instant dataContratacao) {
-        this.dataContratacao = dataContratacao;
     }
 }
